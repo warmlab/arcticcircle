@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block content %}
+    <div class="content has-text-left">
+        {% image page.image original class="image is-16by9" %}
+        <h2>{{page.intro | richtext }}</h2>
+        <h2 class="subtitle">{% if page.specific_cta_link %}
+            <a href="{% pageurl page.specific_cta_link %}">
+                {% firstof page.specific_cta page.specific_cta_link.title %}
+            </a>
+        </h2>
+        {% endif %}
+  {{ page.body|richtext }}
+    </div>
+
+{% endblock content %}

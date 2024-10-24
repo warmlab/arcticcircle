@@ -1,0 +1,46 @@
+{% load wagtailcore_tags navigation_tags wagtailuserbar %}
+
+<header>
+    {% get_site_root as site_root %}
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="{% pageurl site_root %}">
+            <img src = "/static/image/band.svg">
+            {{site_root.title}}
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menus">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div id="navbar-menus" class="navbar-menu">
+        <div class="navbar-start">
+            {% for menuitem in site_root.get_children.live.in_menu %}
+            <a href="{% pageurl menuitem %}"
+                class="navbar-item">{{ menuitem.title }}</a>{% if not forloop.last %} | {% endif %}
+            {% endfor %}
+            {# Display your search by adding this: #}
+            <a href="/search/"
+                class="navbar-item">Search</a>
+        </div>
+
+        <!--div class="navbar-end">
+        <div class="navbar-item">
+            <div class="buttons">
+            <a class="button is-primary">
+                <strong>Sign up</strong>
+            </a>
+            <a class="button is-light">
+                Log in
+            </a>
+            </div>
+        </div>
+        </div-->
+    </div>
+    </nav>
+    {% wagtailuserbar "top-right" %}
+</header>
