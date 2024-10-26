@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'whitenoise.runserver_nostatic',
     #"wagtail.contrib.postgres_search",
 ]
 
@@ -60,6 +61,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
@@ -91,22 +93,25 @@ WSGI_APPLICATION = "work.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+
 DATABASES = {
     "default": {
         #"ENGINE": "django.db.backends.sqlite3",
         #"NAME": os.path.join(BASE_DIR, "db.sqlite3"),
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'arcticwork',
-        'USER': 'river',
-        'PASSWORD': 'amei',
-        'HOST': '192.168.1.83',
+        'USER': 'postgres',
+        'PASSWORD': 'qLn8UyeXWGPAw39',
+        'HOST': 'fdaa:a:cb68:0:1::4',
         'PORT': 5432,
-        'OPTIONS': {
-          'sslmode': 'require'
-        }
+        #'OPTIONS': {
+        #  'sslmode': 'require'
+        #}
     }
 }
 
+import dj_database_url;
+DATABASES['default'] =  dj_database_url.config()
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -187,7 +192,8 @@ WAGTAILSEARCH_BACKENDS = {
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-WAGTAILADMIN_BASE_URL = "http://arcticcircle.work"
+#WAGTAILADMIN_BASE_URL = "http://arcticcircle.work"
+WAGTAILADMIN_BASE_URL = "https://arcticcircle.fly.dev"
 
 # Allowed file extensions for documents in the document library.
 # This can be omitted to allow all files, but note that this may present a security risk
